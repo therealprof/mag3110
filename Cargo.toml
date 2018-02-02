@@ -1,0 +1,22 @@
+[package]
+authors = ["Daniel Egger <daniel@eggers-club.de>"]
+categories = [
+    "embedded",
+    "hardware-support",
+    "no-std",
+]
+description = "A platform agnostic driver to interface with the I2C based NXP MAG3110 magnetometer"
+keywords = [
+    "embedded-hal",
+    "magnetometer",
+]
+license = "0-clause BSD"
+name = "mag3110"
+version = "0.1.0"
+
+[dependencies]
+embedded-hal = "0.1.0"
+
+[dependencies.cast]
+default-features = false
+version = "0.2.2"
