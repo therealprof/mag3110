@@ -99,23 +99,18 @@ where
     pub fn new(i2c: I2C) -> Result<Self, E> {
         let mut mag3110 = Self { i2c };
 
-        /* Set auto reset to on and disable user calibration */
-        mag3110.write_register(Register::CTRL_REG2, 0xA)?;
-
-        /* Initialise to highest sampling rate, lowest oversampling and continous measurement */
-        let setting = DataRate::HZ80.bits() | Oversampling::OV16.bits() | 1;
-        mag3110.write_register(Register::CTRL_REG1, setting)?;
+        /* Initialise with highest sampling rate, lowest oversampling and continous measurement */
+        mag3110.set_sampling_mode(DataRate::HZ80, Oversampling::OV16)?;
 
         Ok(mag3110)
     }
 
     pub fn set_sampling_mode(&mut self, dr: DataRate, ov: Oversampling) -> Result<(), E> {
         /* Stop sampling */
-        self.write_register(Register::CTRL_REG1, 0)?;
+        let _ = self.stop_sampling()?;
 
         /* Restart sampling with new settings */
         self.write_register(Register::CTRL_REG1, dr.bits() | ov.bits() | 1)?;
-
         Ok(())
     }
 
@@ -137,6 +132,22 @@ where
             .write_read(ADDRESS, &[Register::DIE_TEMP.addr()], &mut buffer)?;
 
         Ok(buffer[0] as i8)
+    }
+
+    pub fn stop_sampling(&mut self) -> Result<(), E> {
+        loop {
+            /* Stop sampling */
+            self.write_register(Register::CTRL_REG1, 0)?;
+
+            /* Read mode register so we know it has settled */
+            let mut buffer: [u8; 1] = unsafe { mem::uninitialized() };
+            self.i2c
+                .write_read(ADDRESS, &[Register::SYSMOD.addr()], &mut buffer)?;
+
+            if buffer[0] == 0 {
+                break Ok(());
+            }
+        }
     }
 
     fn write_register(&mut self, reg: Register, byte: u8) -> Result<(), E> {
