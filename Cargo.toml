@@ -15,7 +15,7 @@ name = "mag3110"
 version = "0.1.1"
 
 [dependencies]
-embedded-hal = "0.1.0"
+embedded-hal = "0.1.1"
 
 [dependencies.cast]
 default-features = false
