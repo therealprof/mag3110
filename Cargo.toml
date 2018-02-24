@@ -6,16 +6,18 @@ categories = [
     "no-std",
 ]
 description = "A platform agnostic driver to interface with the I2C based NXP MAG3110 magnetometer"
+documentation = "https://docs.rs/mag3110"
 keywords = [
     "embedded-hal",
     "magnetometer",
 ]
-license = "0-clause BSD"
+license = "0BSD"
 name = "mag3110"
+repository = "https://github.com/therealprof/mag3110"
 version = "0.1.1"
 
 [dependencies]
-embedded-hal = "0.1.1"
+embedded-hal = "0.1.2"
 
 [dependencies.cast]
 default-features = false
