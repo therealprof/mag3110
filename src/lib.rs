@@ -8,7 +8,7 @@
 //!
 //! You should find at least one example in the [microbit] crate.
 //!
-//! [microbot]: https://github.com/therealprof/microbit
+//! [microbit]: https://github.com/therealprof/microbit
 
 #![deny(warnings)]
 #![feature(unsize)]
