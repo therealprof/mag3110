@@ -15,10 +15,10 @@ keywords = [
 license = "0BSD"
 name = "mag3110"
 repository = "https://github.com/therealprof/mag3110"
-version = "0.1.2"
+version = "0.1.3"
 
 [dependencies]
-embedded-hal = "0.1.2"
+embedded-hal = "0.2.1"
 
 [dependencies.cast]
 default-features = false
