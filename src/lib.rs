@@ -11,7 +11,6 @@
 //! [microbit]: https://github.com/therealprof/microbit
 
 #![deny(warnings)]
-#![feature(unsize)]
 #![no_std]
 
 extern crate cast;
